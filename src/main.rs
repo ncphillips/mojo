@@ -38,6 +38,7 @@ fn review() {
 }
 
 fn get_daily_entries_for_review() -> Vec<entry::Entry> {
+    // TODO: Lookup all entries from the configured directory.
     let dates = vec![
         "2019-03-01",
         "2019-03-02",
@@ -47,6 +48,7 @@ fn get_daily_entries_for_review() -> Vec<entry::Entry> {
     let mut entries = Vec::new();
 
     for date in dates.iter() {
+        // TODO: Lazily load the contents of an entry.
         let mut file = File::open(format!("fixtures/{}.md", date)).unwrap();
         let mut contents = String::new();
         file.read_to_string(&mut contents).expect("Unable to read the file");
