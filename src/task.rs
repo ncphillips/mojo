@@ -1,7 +1,6 @@
 use regex::Regex;
 
-#[derive(PartialEq)]
-#[derive(Debug)]
+#[derive(PartialEq, Debug)]
 enum TaskStatus {
     Incomplete,
     Complete,
@@ -13,7 +12,7 @@ enum TaskStatus {
 #[derive(Debug)]
 struct Task {
     status: TaskStatus,
-    description: String
+    description: String,
 }
 
 const TASK_RE: &str = "^ *[-*+] *\\[([(x<>\\- ])?\\] (.*)";
@@ -31,9 +30,9 @@ impl Task {
     }
 
     pub fn from_line(description: &str) -> Result<Task, ()> {
-        let task_re= Regex::new(TASK_RE).unwrap();
+        let task_re = Regex::new(TASK_RE).unwrap();
         if !task_re.is_match(description) {
-            return Err(())
+            return Err(());
         }
 
         let caps = task_re.captures(description).unwrap();
@@ -53,7 +52,7 @@ impl Task {
     }
 }
 
-impl PartialEq for Task{
+impl PartialEq for Task {
     fn eq(&self, other: &Task) -> bool {
         self.description == other.description
     }
@@ -156,11 +155,10 @@ mod from_line {
         assert_eq!(TaskStatus::Backlog, task.status)
     }
 
-     #[test]
+    #[test]
     fn understands_deleted_tasks() {
         let task = Task::from_line("+ [-] test").unwrap();
 
         assert_eq!(TaskStatus::Deleted, task.status)
     }
 }
-

@@ -3,10 +3,9 @@ extern crate regex;
 use regex::Regex;
 use std::env;
 use std::fs::File;
-use std::io::{stdin, BufReader, BufRead};
+use std::io::{stdin, BufRead, BufReader};
 
 mod task;
-
 
 fn main() {
     let command = env::args().nth(1).unwrap_or(String::from(""));
@@ -20,7 +19,6 @@ fn main() {
         }
     }
 }
-
 
 fn help() {
     println!("mojo review - Review past entries.");
@@ -42,8 +40,12 @@ fn review() {
     }
 }
 
-fn get_daily_entries_for_review() -> Vec<DailyEntry>  {
-    vec![DailyEntry::new("2019-03-01"), DailyEntry::new("2019-03-02"), DailyEntry::new("2019-03-03")]
+fn get_daily_entries_for_review() -> Vec<DailyEntry> {
+    vec![
+        DailyEntry::new("2019-03-01"),
+        DailyEntry::new("2019-03-02"),
+        DailyEntry::new("2019-03-03"),
+    ]
 }
 
 // DailyEntry
@@ -53,7 +55,7 @@ struct DailyEntry {
 
 impl DailyEntry {
     pub fn new(date: &str) -> DailyEntry {
-        DailyEntry {  
+        DailyEntry {
             date: String::from(date),
         }
     }
@@ -79,12 +81,11 @@ impl<'entry> Task<'entry> {
                 status: TaskStatus::Todo,
                 description: line,
             })
-        } else{
+        } else {
             Err(())
         }
     }
 }
-
 
 // Review Entry
 fn review_entry(entry: &DailyEntry) {
@@ -95,7 +96,7 @@ fn review_entry(entry: &DailyEntry) {
 
         match Task::from_line(&line_contents) {
             Ok(task) => review_entry_task(&task),
-            Err(_) => {},
+            Err(_) => {}
         }
     }
 }
@@ -124,4 +125,3 @@ fn review_entry_task(task: &Task) {
         // Do nothing
     }
 }
-
