@@ -87,3 +87,29 @@ in past entries. Interactive commands
   `n` or `SPACE`- skip
   `d` - mark as ignored
 ```
+
+## Developing
+
+**Run Mojo**
+
+```sh
+cargo run
+```
+
+**Test Mojo**
+```sh
+cargo test
+```
+
+**Format Code with [rustfmt](https://github.com/rust-lang/rustfmt)**
+```sh
+rustup component add rustfmt
+cargo fmt
+```
+
+**Lint with [Clippy](https://github.com/rust-lang/rust-clippy)**
+```sh
+rustup component add clippy
+cargo clippy
+```
+
