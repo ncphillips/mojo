@@ -1,7 +1,7 @@
 use regex::Regex;
 
 #[derive(PartialEq, Debug)]
-enum TaskStatus {
+pub enum TaskStatus {
     Incomplete,
     Complete,
     Migrated,
@@ -10,9 +10,9 @@ enum TaskStatus {
 }
 
 #[derive(Debug)]
-struct Task {
-    status: TaskStatus,
-    description: String,
+pub struct Task {
+    pub status: TaskStatus,
+    pub description: String,
 }
 
 const TASK_RE: &str = "^ *[-*+] *\\[([(x<>\\- ])?\\] (.*)";
