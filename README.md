@@ -63,23 +63,23 @@ TODO
 ## Commands
 
 ```
-`rujo` - open todays entry
+`mojo` - open todays entry
 
-`rujo -d 2019-02-01` - open the entry from February 1st, 2019
+`mojo -d 2019-02-01` - open the entry from February 1st, 2019
 
-`rujo prev` - open the previous enty
-`rujo -1` - open the previous entry
-`rujo -5` - open the fifth to last entry
+`mojo prev` - open the previous enty
+`mojo -1` - open the previous entry
+`mojo -5` - open the fifth to last entry
 
-`rujo todo "I have to do something"`` - add task to todays entry
+`mojo todo "I have to do something"`` - add task to todays entry
 
-`rujo event "I ate a biscuit"` - add event to todays entry
-`rujo now "Drinking coffee"` - add event to todays entry with current time
-`rujo event -t "lunch" "Babas cheeseburger"` - add event to todays entry with given time
+`mojo event "I ate a biscuit"` - add event to todays entry
+`mojo now "Drinking coffee"` - add event to todays entry with current time
+`mojo event -t "lunch" "Babas cheeseburger"` - add event to todays entry with given time
 
-`rujo note "Billy likes biscuits"` - add note to todays entry
+`mojo note "Billy likes biscuits"` - add note to todays entry
 
-`rujo review` - an interative review of unfinished business
+`mojo review` - an interative review of unfinished business
 in past entries. Interactive commands
   `x` - mark as complete 
   `f` or `>` - migrate to current day
