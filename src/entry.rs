@@ -1,7 +1,7 @@
-mod task;
+pub mod task;
 
-struct Entry {
-    tasks: Vec<task::Task>
+pub struct Entry {
+    pub tasks: Vec<task::Task>
 }
 
 impl Entry {
