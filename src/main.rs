@@ -57,35 +57,65 @@ fn get_daily_entries_for_review() -> Vec<entry::Entry> {
 
     entries
 }
-//
+
+enum TaskCommand {
+    MarkComplete,
+    MoveForward,
+    MoveToFutureLog,
+    Skip,
+    Delete,
+    Unknown,
+}
+
+fn task_command_from(input: &str) -> TaskCommand {
+    match input.trim()  {
+        "x" => TaskCommand::MarkComplete,
+        ">" => TaskCommand::MoveForward,
+        "<" => TaskCommand::MoveToFutureLog,
+        "n" => TaskCommand::Skip,
+        "d" => TaskCommand::Delete,
+        _ => TaskCommand::Unknown,
+    }
+}
+
 // Review Entry
 fn review_entry(entry: &entry::Entry) {
     for task in entry.tasks.iter() {
         review_entry_task(task);
+        println!("\n");
     }
 }
 
 fn review_entry_task(task: &entry::task::Task) {
     // Print Task
-    println!("Unfinished task found...\n");
-    println!("\t{}\n", task.description);
-    if task.status == entry::task::TaskStatus::Incomplete {
-        // Get Action
-        println!("What would you like to do?");
-        println!("\tx - Mark as complete");
-        println!("\t> - Move forward");
-        println!("\t< - Move to future log");
-        println!("\tn - Next");
-        println!("\td - Delete");
-        let mut input = String::new();
-        match stdin().read_line(&mut input) {
-            Ok(_) => {
-                // Perform Action
-                println!("Moved task forward: {}", input);
-            }
-            Err(error) => println!("error: {}", error),
-        }
-    } else {
-        // Do nothing
+    if task.status != entry::task::TaskStatus::Incomplete {
+        return;
     }
+
+    let command = request_task_command(&task);
+
+    match command  {
+        TaskCommand::MarkComplete => println!("Done"),
+        TaskCommand::MoveForward => println!("Moved forward"),
+        TaskCommand::MoveToFutureLog => println!("Moved to future log"),
+        TaskCommand::Skip  => println!("Skipped"),
+        TaskCommand::Delete => println!("Deleted"),
+        TaskCommand::Unknown => println!("?"),
+    }
+}
+
+fn request_task_command(task: &entry::task::Task) -> TaskCommand {
+    print_task_options(task);
+    let mut input = String::new();
+    stdin().read_line(&mut input).expect("Unable to read input");
+    task_command_from(&input)
+}
+
+fn print_task_options(task: &entry::task::Task) {
+    println!("TODO: {}", task.description);
+    println!("x - Mark as complete");
+    println!("> - Move forward");
+    println!("< - Move to future log");
+    println!("n - Skip");
+    println!("d - Delete");
 }
